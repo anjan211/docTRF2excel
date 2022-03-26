@@ -16,7 +16,7 @@ Project is created with:
 * Git
 
 ## Imports
-Please ensure the following dependencies to be already installed in the environment. If not, please install them using pip.
+Please ensure the following dependencies to be already installed in the environment. If not, please install them using pip before running the code.
 * pandas
 * docx
 * re
@@ -25,5 +25,6 @@ Please ensure the following dependencies to be already installed in the environm
 A simple python script to convert standard TRFs into the required excel sheet acceptable for mCom.
 
 Usage:
-1. Running the python script docTRF2excel.py and follow instructions.
-2. Running the jupyter notebook file docTRF2excel.ipynb and edit the TRF doc name and the table number.
+Running the python script docTRF2excel.py and follow instructions.
+OR
+Running the jupyter notebook file docTRF2excel.ipynb and edit the TRF doc name and the table number.
