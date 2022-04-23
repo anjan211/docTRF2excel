@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[116]:
+# In[39]:
 
 
 from docx import Document
@@ -10,11 +10,11 @@ import re
 import sys
 
 
-# In[117]:
+# In[40]:
 
 
-doc_name = input('Enter file name')
-table_num = input('Enter the table number, e.g. -1 for last table') # Required info is in last table (-1) for most of the cases
+doc_name = input('Enter file name: ')
+table_num = int(input('Enter the table number, e.g. -1 for last table: ')) # Required info is in last table (-1) for most of the cases
 document = Document(doc_name+".docx")
 tables = document.tables
 df = pd.DataFrame()
@@ -32,7 +32,7 @@ df = df.sort_index()  # sorting by index
 # df.to_excel(doc_name+".xlsx", index=False, header=False)
 
 
-# In[118]:
+# In[41]:
 
 
 # Loop through the dataframe and seperate clauses from sections
@@ -60,7 +60,7 @@ for i in range (1, len(df)):
 df = df.replace('\n|\r|\t',' ', regex=True)
 
 
-# In[119]:
+# In[42]:
 
 
 # Loop through the dataframe for duplicating clauses
@@ -68,7 +68,6 @@ df = df.replace('\n|\r|\t',' ', regex=True)
 for i in range (1, len(df)):
     pos2 = df.iloc[i,1]
     pos1 = df.iloc[i,0]
-    match = bool(re.search(r'\d', str(pos2))) # Finds numeric value
  
     if(pos2=='' and pos1==''):
         # df.iloc[i, 1] = df.iloc[i-1, 1]
@@ -83,7 +82,7 @@ for i in range (1, len(df)):
                 break
 
 
-# In[120]:
+# In[43]:
 
 
 # Loop through the dataframe and check clauses
@@ -105,7 +104,25 @@ for i in range (1, len(df)):
             df.iloc[i, 1] = section
 
 
-# In[121]:
+# In[44]:
+
+
+# Putting section/clause number in front of non-clause values like NOTE and a,b,c,etc.
+
+temp = ''
+for i in range (1, len(df)):
+    pos2 = df.iloc[i,1]
+    pos1 = df.iloc[i,0]
+    match = bool(re.search(r'\d', str(pos2))) # Finds numeric value
+    
+    if (pos1==''):
+        if (match):
+            temp = df.iloc[i,1]
+        else:
+            df.iloc[i,1] = str(temp) + ' ' + df.iloc[i,1]
+
+
+# In[45]:
 
 
 df.to_excel(doc_name+".xlsx", index=False, header=False)
